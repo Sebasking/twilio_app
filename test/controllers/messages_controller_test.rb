@@ -1,8 +1,10 @@
 require "test_helper"
 
 class MessagesControllerTest < ActionDispatch::IntegrationTest
-  test "the truth" do
-    debugger
-    assert true
+
+  describe "GETS 'show'" do
+    test "it returns all messages for the logged in user" do
+      debugger
+    end
   end
 end
