@@ -8,11 +8,6 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
-  namespace :api do
-    namespace :v1 do
-      resources :users do
-        resources :messages
-      end
-    end
-  end
+  get '/api/v1/users/:user_id/messages', to: 'messages#index'
+  get '/api/v1/users/:user_id/messages/:message_id', to: 'messages#show'
 end
