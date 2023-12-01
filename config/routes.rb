@@ -10,4 +10,5 @@ Rails.application.routes.draw do
   # root "posts#index"
   get '/api/v1/users/:user_id/messages', to: 'messages#index'
   get '/api/v1/users/:user_id/messages/:message_id', to: 'messages#show'
+  post '/api/v1/users/:user_id/messages', to: 'messages#create'
 end

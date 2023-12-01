@@ -22,7 +22,19 @@ RSpec.describe "Messages", type: :request do
       @user = User.create!(email: 'someemail@gmail.com', password: 'somepassword')
       Message.create!(user_id: @user.id, to: '55555555', body: first_message)
       Message.create!(user_id: @user.id, to: '55555555', body: second_message)
-      get "/api/v1/users/#{@user.id}/messages"
+      expect(get "/api/v1/users/#{@user.id}/messages").to raise_error
+    end
+  end
+
+  describe "POST /create" do
+    it "creates and sends message if params are properly sent" do
+      @user = User.create(email: 'someemail@gmail.com', password: 'somepassword')
+
+      sign_in @user
+
+      post "/api/v1/users/#{@user.id}/messages", :params => {:to => '19175249398', :body => 'this is my message'}
+
+      # expect
     end
   end
 end
