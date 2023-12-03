@@ -6,10 +6,9 @@ class MessagesController < ApplicationController
         render json: @messages
     end
 
-    def create 
-        puts 'did i make it here'
-        puts params
-        result = TwilioClient.send_message(from: message_params['from'], to: message['to'])
+    def create
+        # debugger
+        result = TwilioClient.send_message(params['to'], params['body'])
         puts result
     end
 
