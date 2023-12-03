@@ -8,8 +8,9 @@ class MessagesController < ApplicationController
 
     def create
         # debugger
+
         result = TwilioClient.send_message(params['to'], params['body'])
-        puts result
+        # puts result
     end
 
     private

@@ -12,6 +12,8 @@ RSpec.describe "Messages", type: :request do
       sign_in @user
       get "/api/v1/users/#{@user.id}/messages"
       parsed_response = JSON.parse(response.body)
+      
+      expect(response.code).to eq("200")
       expect(parsed_response[0]['body']).to eq(first_message)
       expect(parsed_response[1]['body']).to eq(second_message)
     end
@@ -22,7 +24,9 @@ RSpec.describe "Messages", type: :request do
       @user = User.create!(email: 'someemail@gmail.com', password: 'somepassword')
       Message.create!(user_id: @user.id, to: '55555555', body: first_message)
       Message.create!(user_id: @user.id, to: '55555555', body: second_message)
-      expect(get "/api/v1/users/#{@user.id}/messages").to raise_error
+      get "/api/v1/users/#{@user.id}/messages" 
+     
+      expect(response.code).to eq("302")
     end
   end
 
