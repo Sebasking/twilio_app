@@ -7,10 +7,7 @@ class MessagesController < ApplicationController
     end
 
     def create
-        # debugger
-
         result = TwilioClient.send_message(params['to'], params['body'])
-        # puts result
     end
 
     private
