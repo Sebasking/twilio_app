@@ -8,6 +8,16 @@ class MessagesController < ApplicationController
 
     def create
         result = TwilioClient.send_message(params['to'], params['body'])
+
+        if (result.status_code != "200")
+            {status: :bad_request, message: "Something with wrong"}.to_json 
+        else
+            begin
+                Message.create!(user_id: current_user.id, to: params['to'], body: params['body'])
+            rescue => exception
+                 
+            end
+        end
     end
 
     private
