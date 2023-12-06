@@ -10,7 +10,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
     puts(current_user.inspect)
     puts(_opts)
     if request.method == "POST" && resource.persisted?
-      puts 'we persisted'
       render json: {
         status: {code: 200, message: 'Signed up successfully.'},
         data: UserSerializer.new(current_user).serializable_hash[:data][:attributes]

@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  devise_for :users, path: '', path_names: {
+  devise_for :users, defaults: {format: :json}, path: '', path_names: {
     sign_in: 'login',
     sign_out: 'logout',
     registration: 'signup'
@@ -14,7 +14,6 @@ Rails.application.routes.draw do
   # Can be used by load balancers and uptime monitors to verify that the app is live.
   get "up" => "rails/health#show", as: :rails_health_check
 
-  # Defines the root path route ("/")
   get 'api/v1/users/:user_id/messages', to: 'messages#index'
   get 'api/v1/users/:user_id/messages/:message_id', to: 'messages#show'
   post 'api/v1/users/:user_id/messages', to: 'messages#create'
