@@ -22,7 +22,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       puts(resource.errors.full_messages.to_sentence)
       render json: {
         message: "User couldn't be created successfully. #{resource.errors.full_messages.to_sentence}",
-        status: {code: 422, }
+        status: {code: 422}
       }, status: :unprocessable_entity
     end
   end
