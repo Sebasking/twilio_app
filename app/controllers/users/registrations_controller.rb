@@ -7,8 +7,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
   private 
 
   def respond_with(current_user, _opts = {})
-    puts(current_user.inspect)
-    puts(_opts)
     if request.method == "POST" && resource.persisted?
       render json: {
         status: {code: 200, message: 'Signed up successfully.'},
@@ -19,7 +17,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
         status: {code: 200, message: "Account deleted successfully"}
       }, status: :ok
     else
-      puts(resource.errors.full_messages.to_sentence)
       render json: {
         message: "User couldn't be created successfully. #{resource.errors.full_messages.to_sentence}",
         status: {code: 422}
