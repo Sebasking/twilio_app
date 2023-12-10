@@ -7,21 +7,15 @@ class MessagesController < ApplicationController
     end
 
     def create
-        result = TwilioClient.send_message(params['to'], params['body'])
-
-        if (result.status_code != "200")
-            {status: :bad_request, message: "Something with wrong"}.to_json 
-        else
-            begin
-                Message.create!(user_id: current_user.id, to: params['to'], body: params['body'])
-            rescue => exception
-                 
-            end
+        to = params['message']['to']
+        body = params['message']['body']
+        begin
+            TwilioClient.send_message(params['message']['to'], params['message']['body'])
+            Message.create!(user_id: current_user.id, to: to, body: body)
+            render json: {ok: "Message created"}, status: :created
+        rescue => e
+            render json: {message: 'Unable to create message', error: "#{e.message}"}, status: :unprocessable_entity
         end
     end
-
-    private
-    def message_params
-        params.require(:message).permit(:body, :to)
-    end
 end
+ 
